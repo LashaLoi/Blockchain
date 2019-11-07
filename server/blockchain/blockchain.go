@@ -7,13 +7,13 @@ import (
 
 // Block ...
 type Block struct {
-	Hash         string
-	PrevBlockHas string
-	Data         string
+	Hash          string
+	PrevBlockHash string
+	Data          string
 }
 
 func (b *Block) hasBlock() {
-	hash := sha256.Sum256([]byte(b.PrevBlockHas + b.Data))
+	hash := sha256.Sum256([]byte(b.PrevBlockHash + b.Data))
 	b.Hash = hex.EncodeToString(hash[:])
 }
 
@@ -25,8 +25,8 @@ type Blockchain struct {
 // NewBlock ...
 func NewBlock(data, prevBlockHash string) *Block {
 	block := &Block{
-		Data:         data,
-		PrevBlockHas: prevBlockHash,
+		Data:          data,
+		PrevBlockHash: prevBlockHash,
 	}
 	block.hasBlock()
 
