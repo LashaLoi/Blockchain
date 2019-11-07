@@ -6,11 +6,14 @@ import (
 	"net"
 
 	"../proto"
+	"./blockchain"
 	"google.golang.org/grpc"
 )
 
 // GRPCServer ...
-type GRPCServer struct{}
+type GRPCServer struct {
+	Blockchain *blockchain.Blockchain
+}
 
 // AddBlock ...
 func (s *GRPCServer) AddBlock(ctx context.Context, in *proto.AddBlockRequest) (*proto.AddBlockResponse, error) {
@@ -31,7 +34,9 @@ func main() {
 	}
 
 	srv := grpc.NewServer()
-	proto.RegisterBlockchainServer(srv, &GRPCServer{})
+	proto.RegisterBlockchainServer(srv, &GRPCServer{
+		Blockchain: blockchain.NewBlockChain(),
+	})
 
 	log.Printf("tcp server was started on: %v", port)
 	srv.Serve(l)
