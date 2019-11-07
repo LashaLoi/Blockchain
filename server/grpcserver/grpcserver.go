@@ -7,7 +7,7 @@ import (
 	"../blockchain"
 )
 
-// Server is a main element witch allow you to put in itto groc register function
+// Server is a main element witch allow you to put in into groc register function
 type Server struct {
 	Blockchain *blockchain.Blockchain
 }

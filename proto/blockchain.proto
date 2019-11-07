@@ -17,7 +17,6 @@ message AddBlockResponse {
 
 message GetBlockchainRequest {}
 
-
 message Block {
     string hash = 1;
     string prevBlockHash = 2;

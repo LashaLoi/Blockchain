@@ -11,14 +11,18 @@ import (
 	"google.golang.org/grpc"
 )
 
+var (
+	addFlag  = flag.Bool("add", false, "add new block")
+	listFlag = flag.Bool("list", false, "get the blockchain")
+)
+
 func main() {
-	addFlag := flag.Bool("add", false, "add new block")
-	listFlag := flag.Bool("list", false, "get the blockchain")
 	flag.Parse()
 
 	conn, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
 	if err != nil {
 		log.Fatal(err)
+		return
 	}
 
 	client := proto.NewBlockchainClient(conn)
@@ -30,9 +34,11 @@ func main() {
 
 		if err != nil {
 			log.Fatal(err)
+			return
 		}
 
 		fmt.Println(b)
+		return
 	}
 
 	if *listFlag {
@@ -40,10 +46,15 @@ func main() {
 
 		if err != nil {
 			log.Fatal(err)
+			return
 		}
 
 		for _, b := range bc.Blocks {
 			fmt.Println(b)
 		}
+
+		return
 	}
+
+	log.Fatal("You are not provide any flat, please use --add or --list flag to make a request")
 }
