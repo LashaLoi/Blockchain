@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 )
 
-// Block ...
+// Block is item of blockchain
 type Block struct {
 	Hash          string
 	PrevBlockHash string
@@ -17,12 +17,12 @@ func (b *Block) hasBlock() {
 	b.Hash = hex.EncodeToString(hash[:])
 }
 
-// Blockchain ...
+// Blockchain is a list of blocks
 type Blockchain struct {
 	Blocks []*Block
 }
 
-// NewBlock ...
+// NewBlock allow you to create a new block
 func NewBlock(data, prevBlockHash string) *Block {
 	block := &Block{
 		Data:          data,
@@ -33,7 +33,7 @@ func NewBlock(data, prevBlockHash string) *Block {
 	return block
 }
 
-// AddBlock ...
+// AddBlock allow you tp add block in blockchain
 func (bc *Blockchain) AddBlock(data string) *Block {
 	prevBlock := bc.Blocks[len(bc.Blocks)-1]
 	block := NewBlock(data, prevBlock.Hash)
@@ -43,7 +43,7 @@ func (bc *Blockchain) AddBlock(data string) *Block {
 	return block
 }
 
-// NewBlockChain ...
+// NewBlockChain allow you to create a new blockchain
 func NewBlockChain() *Blockchain {
 	blocks := []*Block{NewBlock("Genesis Block", "")}
 
