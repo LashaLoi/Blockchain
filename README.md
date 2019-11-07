@@ -13,6 +13,6 @@ Simple gRPC server and client to create block and get blockchain
 
 - go run server/main.go
 
-#### Start server
+#### Start client
 
 - go run client/main.go
