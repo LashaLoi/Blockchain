@@ -7,6 +7,7 @@ import (
 
 	"../proto"
 	"./blockchain"
+	"./config"
 	"google.golang.org/grpc"
 )
 
@@ -40,9 +41,9 @@ func (s *GRPCServer) GetBlockchain(ctx context.Context, in *proto.GetBlockchainR
 }
 
 func main() {
-	port := ":8080"
+	cfg := config.NewConfig()
 
-	l, err := net.Listen("tcp", port)
+	l, err := net.Listen("tcp", cfg.Port)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -52,6 +53,6 @@ func main() {
 		Blockchain: blockchain.NewBlockChain(),
 	})
 
-	log.Printf("tcp server was started on: %v", port)
+	log.Printf("tcp server was started on: %v", cfg.Port)
 	srv.Serve(l)
 }
